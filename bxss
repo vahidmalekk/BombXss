@@ -1,3 +1,11 @@
+#!/usr/bin/python3
+import requests as req
+from bs4 import BeautifulSoup as bs
+import urllib.parse
+import sys
+
+
+
 def main():
         xss=["%3Csvg%20onload%3D%28alert%29%281%29%3E","%3Cimg%20src%3D2%20onerror%3Dalert%28%221%22%29%3E"]
         link=[]
@@ -7,10 +15,10 @@ def main():
                 readfile1=file1.readlines()
                 for i in readfile1:
                         link.append(i)
-                file1.close()
 
         read()
         def find():
+                        
                 param=[]
                 for i in link:
                     c=i.replace("\n","")
@@ -26,9 +34,10 @@ def main():
                                 payload=f"{c}?{j}={x}"
                                 send=req.get(payload).text
                                 if urllib.parse.unquote(x) in send:
-                                    print(payload)
+                                    print(payload) 
         find()
 
 
 
 main()
+

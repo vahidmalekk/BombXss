@@ -20,6 +20,7 @@ def main():
         def find():
                         
                 param=[]
+                try:
                 for i in link:
                     c=i.replace("\n","")
                     p=req.get(c)
@@ -34,7 +35,9 @@ def main():
                                 payload=f"{c}?{j}={x}"
                                 send=req.get(payload).text
                                 if urllib.parse.unquote(x) in send:
-                                    print(payload) 
+                                        print(payload) 
+                except:
+                        pass
         find()
 
 

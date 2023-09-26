@@ -21,21 +21,21 @@ def main():
                         
                 param=[]
                 try:
-                for i in link:
-                    c=i.replace("\n","")
-                    p=req.get(c)
-                    if "200" in str(p):
-                        soup=bs(p.text,'html.parser')
-                        g = soup.find_all("input")
-                        for a in g:
-                            if a.get("type") != "submit":
-                                param.append(a.get("name"))
-                        for j in param:
-                            for x in xss:
-                                payload=f"{c}?{j}={x}"
-                                send=req.get(payload).text
-                                if urllib.parse.unquote(x) in send:
-                                        print(payload) 
+                        for i in link:
+                            c=i.replace("\n","")
+                            p=req.get(c)
+                            if "200" in str(p):
+                                soup=bs(p.text,'html.parser')
+                                g = soup.find_all("input")
+                                for a in g:
+                                    if a.get("type") != "submit":
+                                        param.append(a.get("name"))
+                                for j in param:
+                                    for x in xss:
+                                        payload=f"{c}?{j}={x}"
+                                        send=req.get(payload).text
+                                        if urllib.parse.unquote(x) in send:
+                                                print(payload) 
                 except:
                         pass
         find()
